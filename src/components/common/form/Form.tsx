@@ -17,8 +17,16 @@ const Form = () => {
 	const { tg } = useTelegram()
 
 	const onSubmit = (data: IFormDetails) => {
-		console.log(data)
+		tg.sendData(JSON.stringify(data))
 	}
+
+	useEffect(() => {
+		tg.onEvent('mainButtonClicked', () => onSubmit)
+
+		return () => {
+			tg.offEvent('mainButtonClicked', () => onSubmit)
+		}
+	}, [])
 
 	useEffect(() => {
 		tg.MainButton.setParams({
