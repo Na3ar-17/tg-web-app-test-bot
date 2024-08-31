@@ -16,11 +16,11 @@ const Item = ({ product, className, onAdd }: IProps) => {
 			<div className={'description'}>{product.description}</div>
 			<div className={'price'}>
 				<span>
-					Стоимость: <b>{product.price}</b>
+					Price: <b>{product.price}</b>
 				</span>
 			</div>
 			<Button className={'add-btn'} onClick={() => onAdd(product)}>
-				Добавить в корзину
+				Add to favorites
 			</Button>
 		</div>
 	)

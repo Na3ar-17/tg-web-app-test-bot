@@ -20,7 +20,7 @@ const ProductList = () => {
 			})
 		}
 
-		if (addedItems.length <= productsData.length) {
+		if (addedItems.length == 0) {
 			tg.MainButton.hide()
 		} else {
 			tg.MainButton.show()
