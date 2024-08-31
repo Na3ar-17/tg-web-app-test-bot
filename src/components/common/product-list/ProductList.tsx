@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { productsData } from '../../../data/products.data'
 import { useTelegram } from '../../../hooks/useTelegram'
 import { IProduct } from '../../../types/product.types'
@@ -19,7 +19,9 @@ const ProductList = () => {
 				return [...prev, product]
 			})
 		}
+	}
 
+	useEffect(() => {
 		if (addedItems.length == 0) {
 			tg.MainButton.hide()
 		} else {
@@ -28,7 +30,7 @@ const ProductList = () => {
 				text: `Buy ${addedItems.reduce((acc, item) => (acc += item.price), 0)}`,
 			})
 		}
-	}
+	}, [addedItems])
 
 	return (
 		<div className={'list'}>
