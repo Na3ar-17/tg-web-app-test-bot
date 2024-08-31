@@ -5,15 +5,10 @@ import { IFormDetails } from '../../../types/form.types'
 import './Form.css'
 
 const Form = () => {
-	const {
-		handleSubmit,
-		register,
-		getValues,
-		formState: { errors },
-	} = useForm<IFormDetails>({
+	const { handleSubmit, register, getValues } = useForm<IFormDetails>({
 		mode: 'onSubmit',
 	})
-	const isError = Object.keys(errors).length > 0
+	const isError = getValues().name == '' || getValues().surname == ''
 
 	const { tg } = useTelegram()
 
@@ -28,7 +23,7 @@ const Form = () => {
 	}, [])
 
 	useEffect(() => {
-		if (getValues().name == '' || getValues().surname == '') {
+		if (isError) {
 			tg.MainButton.hide()
 		} else {
 			tg.MainButton.show()
