@@ -7,7 +7,7 @@ import './ProductList.css'
 
 const ProductList = () => {
 	const [addedItems, setAddedItems] = useState<IProduct[]>([])
-	const { tg } = useTelegram()
+	const { tg, queryId } = useTelegram()
 
 	const onAdd = (product: IProduct) => {
 		const existProduct = addedItems.find(el => el.id === product.id)
@@ -21,6 +21,9 @@ const ProductList = () => {
 			})
 		}
 	}
+	const handleTotalPrise = (items: IProduct[]) => {
+		return items.reduce((acc, item) => (acc += item.price), 0)
+	}
 
 	useEffect(() => {
 		if (addedItems.length == 0) {
@@ -28,10 +31,32 @@ const ProductList = () => {
 		} else {
 			tg.MainButton.show()
 			tg.MainButton.setParams({
-				text: `Buy ${addedItems.reduce((acc, item) => (acc += item.price), 0)}`,
+				text: `Buy ${handleTotalPrise(addedItems)}`,
 			})
 		}
 	}, [addedItems])
+
+	useEffect(() => {
+		const data = {
+			products: addedItems,
+			totalPrice: handleTotalPrise(addedItems),
+			queryId,
+		}
+
+		fetch(process.env.REACT_APP_API_KEY + '/api/web-data', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		})
+	}, [])
+
+	useEffect(() => {
+		tg.MainButton.setParams({
+			text: 'Submit',
+		})
+	}, [])
 
 	return (
 		<div className={'list'}>
