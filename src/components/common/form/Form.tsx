@@ -28,12 +28,11 @@ const Form = () => {
 	}, [])
 
 	useEffect(() => {
-		if (getValues().name == '' || getValues().surname == '')
-			if (isError) {
-				tg.MainButton.hide()
-			} else {
-				tg.MainButton.show()
-			}
+		if (getValues().name == '' || getValues().surname == '') {
+			tg.MainButton.hide()
+		} else {
+			tg.MainButton.show()
+		}
 	}, [isError])
 
 	return (
