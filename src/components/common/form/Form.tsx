@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTelegram } from '../../../hooks/useTelegram'
 import { IFormDetails } from '../../../types/form.types'
-import Button from '../../ui/button/Button'
 import './Form.css'
 
 const Form = () => {
@@ -55,7 +54,6 @@ const Form = () => {
 					<option value={'Male'}>Male</option>
 					<option value={'Female'}>Female</option>
 				</select>
-				<Button type='submit'>Submit</Button>
 			</form>
 		</div>
 	)
