@@ -8,11 +8,11 @@ const Form = () => {
 	const {
 		handleSubmit,
 		register,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<IFormDetails>({
 		mode: 'onChange',
 	})
-	const isError = Object.keys(errors).length > 0
+	const isError = Object.keys(errors).length > 0 || !isValid
 
 	const { tg } = useTelegram()
 
@@ -23,9 +23,8 @@ const Form = () => {
 	useEffect(() => {
 		tg.MainButton.setParams({
 			text: 'Submit',
-		}).hide()
+		})
 	}, [])
-	console.log(isError)
 
 	useEffect(() => {
 		if (isError) {
