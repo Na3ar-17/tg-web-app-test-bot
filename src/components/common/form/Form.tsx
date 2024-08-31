@@ -9,7 +9,6 @@ const Form = () => {
 		handleSubmit,
 		register,
 		formState: { errors },
-		getValues,
 	} = useForm<IFormDetails>({
 		mode: 'onChange',
 	})
