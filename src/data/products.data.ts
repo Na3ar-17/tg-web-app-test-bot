@@ -1,52 +1,52 @@
 import { IProduct } from '../types/product.types'
 
-export const products: IProduct[] = [
+export const productsData: IProduct[] = [
 	{
 		id: '1',
-		title: 'Джинсы',
+		title: 'Jeans',
 		price: 5000,
-		description: 'Синего цвета, прямые',
+		description: 'Blue color, straight fit',
 	},
 	{
 		id: '2',
-		title: 'Куртка',
+		title: 'Jacket',
 		price: 12000,
-		description: 'Зеленого цвета, теплая',
+		description: 'Green color, warm',
 	},
 	{
 		id: '3',
-		title: 'Джинсы 2',
+		title: 'Jeans 2',
 		price: 5000,
-		description: 'Синего цвета, прямые',
+		description: 'Blue color, straight fit',
 	},
 	{
 		id: '4',
-		title: 'Куртка 8',
+		title: 'Jacket 8',
 		price: 122,
-		description: 'Зеленого цвета, теплая',
+		description: 'Green color, warm',
 	},
 	{
 		id: '5',
-		title: 'Джинсы 3',
+		title: 'Jeans 3',
 		price: 5000,
-		description: 'Синего цвета, прямые',
+		description: 'Blue color, straight fit',
 	},
 	{
 		id: '6',
-		title: 'Куртка 7',
+		title: 'Jacket 7',
 		price: 600,
-		description: 'Зеленого цвета, теплая',
+		description: 'Green color, warm',
 	},
 	{
 		id: '7',
-		title: 'Джинсы 4',
+		title: 'Jeans 4',
 		price: 5500,
-		description: 'Синего цвета, прямые',
+		description: 'Blue color, straight fit',
 	},
 	{
 		id: '8',
-		title: 'Куртка 5',
+		title: 'Jacket 5',
 		price: 12000,
-		description: 'Зеленого цвета, теплая',
+		description: 'Green color, warm',
 	},
 ]

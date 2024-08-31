@@ -1,7 +1,42 @@
+import { useState } from 'react'
+import { productsData } from '../../../data/products.data'
+import { useTelegram } from '../../../hooks/useTelegram'
+import { IProduct } from '../../../types/product.types'
+import Item from './item/Item'
 import './ProductList.css'
 
 const ProductList = () => {
-	return <div>Producs list</div>
+	const [addedItems, setAddedItems] = useState<IProduct[]>([])
+	const { tg } = useTelegram()
+	const onAdd = (product: IProduct) => {
+		const existProduct = addedItems.find(el => el.id === product.id)
+		if (existProduct) {
+			setAddedItems(prev => {
+				return prev.filter(el => el.id !== existProduct.id)
+			})
+		} else {
+			setAddedItems(prev => {
+				return [...prev, product]
+			})
+		}
+
+		if (addedItems.length <= productsData.length) {
+			tg.MainButton.hide()
+		} else {
+			tg.MainButton.show()
+			tg.MainButton.setParams({
+				text: `Buy ${addedItems.reduce((acc, item) => (acc += item.price), 0)}`,
+			})
+		}
+	}
+
+	return (
+		<div className={'list'}>
+			{productsData.map(item => (
+				<Item product={item} onAdd={onAdd} className={'item'} />
+			))}
+		</div>
+	)
 }
 
 export default ProductList
