@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTelegram } from '../../../hooks/useTelegram'
 import { IFormDetails } from '../../../types/form.types'
+import Button from '../../ui/button/Button'
 import './Form.css'
 
 const Form = () => {
@@ -10,11 +11,12 @@ const Form = () => {
 		register,
 		formState: { errors },
 	} = useForm<IFormDetails>({
-		mode: 'onChange',
+		mode: 'onSubmit',
 	})
-	const isError = !!errors.gender || !!errors.surname || !!errors.name
+	const isError = Object.keys(errors).length > 0
 
 	const { tg } = useTelegram()
+
 	const onSubmit = (data: IFormDetails) => {
 		console.log(data)
 	}
@@ -49,10 +51,11 @@ const Form = () => {
 					placeholder={'Surname'}
 					{...register('surname', { required: true })}
 				/>
-				<select className='select' {...register('gender')}>
+				<select className='select' {...register('gender', { required: true })}>
 					<option value={'Male'}>Male</option>
 					<option value={'Female'}>Female</option>
 				</select>
+				<Button type='submit'>Submit</Button>
 			</form>
 		</div>
 	)
