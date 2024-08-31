@@ -1,15 +1,37 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTelegram } from '../../../hooks/useTelegram'
 import { IFormDetails } from '../../../types/form.types'
 import './Form.css'
 
 const Form = () => {
-	const { handleSubmit, register } = useForm<IFormDetails>({
+	const {
+		handleSubmit,
+		register,
+		formState: { errors },
+	} = useForm<IFormDetails>({
 		mode: 'onChange',
 	})
+	const isError = !!errors.gender || !!errors.surname || !!errors.name
 
+	const { tg } = useTelegram()
 	const onSubmit = (data: IFormDetails) => {
 		console.log(data)
 	}
+
+	useEffect(() => {
+		tg.MainButton.setParams({
+			text: 'Submit',
+		})
+	}, [])
+
+	useEffect(() => {
+		if (isError) {
+			tg.MainButton.hide()
+		} else {
+			tg.MainButton.show()
+		}
+	}, [isError])
 
 	return (
 		<div className='form'>
