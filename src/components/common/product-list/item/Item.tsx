@@ -22,7 +22,6 @@ const Item = ({ product, className, onAdd, isAdded }: IProps) => {
 			</div>
 			<Button onClick={() => onAdd(product)}>
 				{isAdded ? 'Remove from favorites' : 'Add to favorites'}
-				Add to favorites
 			</Button>
 		</div>
 	)
