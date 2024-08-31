@@ -22,12 +22,7 @@ const Form = () => {
 	}
 
 	useEffect(() => {
-		if (getValues().name == '' && getValues().surname == '') {
-			console.log('hidden')
-
-			tg.MainButton.hide()
-		}
-
+		tg.MainButton.hide()
 		tg.MainButton.setParams({
 			text: 'Submit',
 		})
