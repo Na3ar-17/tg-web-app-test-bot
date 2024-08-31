@@ -5,10 +5,15 @@ import { IFormDetails } from '../../../types/form.types'
 import './Form.css'
 
 const Form = () => {
-	const { handleSubmit, register, getValues } = useForm<IFormDetails>({
-		mode: 'onSubmit',
+	const {
+		handleSubmit,
+		register,
+		formState: { errors },
+		getValues,
+	} = useForm<IFormDetails>({
+		mode: 'onChange',
 	})
-	const isError = getValues().name == '' || getValues().surname == ''
+	const isError = Object.keys(errors).length > 0
 
 	const { tg } = useTelegram()
 
@@ -17,10 +22,17 @@ const Form = () => {
 	}
 
 	useEffect(() => {
+		if (getValues().name == '' && getValues().surname == '') {
+			console.log('hidden')
+
+			tg.MainButton.hide()
+		}
+
 		tg.MainButton.setParams({
 			text: 'Submit',
 		})
 	}, [])
+	console.log(isError)
 
 	useEffect(() => {
 		if (isError) {
@@ -34,18 +46,34 @@ const Form = () => {
 		<div className='form'>
 			<h3>Enter your details</h3>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<input
-					{...register('name', { required: true })}
-					className='input'
-					type='text'
-					placeholder={'Name'}
-				/>
-				<input
-					className='input'
-					type='text'
-					placeholder={'Surname'}
-					{...register('surname', { required: true })}
-				/>
+				<div>
+					<input
+						{...register('name', {
+							required: {
+								value: true,
+								message: 'Name is required field',
+							},
+						})}
+						className='input'
+						type='text'
+						placeholder={'Name'}
+					/>
+					<p>{errors.name && errors.name.message}</p>
+				</div>
+				<div>
+					<input
+						className='input'
+						type='text'
+						placeholder={'Surname'}
+						{...register('surname', {
+							required: {
+								value: true,
+								message: 'Surname is required field',
+							},
+						})}
+					/>
+					<p>{errors.surname && errors.surname.message}</p>
+				</div>
 				<select className='select' {...register('gender', { required: true })}>
 					<option value={'Male'}>Male</option>
 					<option value={'Female'}>Female</option>
