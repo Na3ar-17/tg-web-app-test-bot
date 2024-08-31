@@ -21,10 +21,9 @@ const Form = () => {
 	}
 
 	useEffect(() => {
-		tg.MainButton.hide()
 		tg.MainButton.setParams({
 			text: 'Submit',
-		})
+		}).hide()
 	}, [])
 	console.log(isError)
 
