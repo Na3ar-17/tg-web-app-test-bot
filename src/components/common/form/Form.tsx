@@ -21,10 +21,14 @@ const Form = () => {
 	}
 
 	useEffect(() => {
-		tg.onEvent('mainButtonClicked', () => onSubmit)
+		const handleMainButtonClicked = () => {
+			handleSubmit(onSubmit)()
+		}
+
+		tg.onEvent('mainButtonClicked', handleMainButtonClicked)
 
 		return () => {
-			tg.offEvent('mainButtonClicked', () => onSubmit)
+			tg.offEvent('mainButtonClicked', handleMainButtonClicked)
 		}
 	}, [])
 
@@ -45,7 +49,7 @@ const Form = () => {
 	return (
 		<div className='form'>
 			<h3>Enter your details</h3>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form>
 				<div>
 					<input
 						{...register('name', {
