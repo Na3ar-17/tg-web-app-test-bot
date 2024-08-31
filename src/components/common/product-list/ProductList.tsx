@@ -8,6 +8,7 @@ import './ProductList.css'
 const ProductList = () => {
 	const [addedItems, setAddedItems] = useState<IProduct[]>([])
 	const { tg } = useTelegram()
+
 	const onAdd = (product: IProduct) => {
 		const existProduct = addedItems.find(el => el.id === product.id)
 		if (existProduct) {
@@ -35,7 +36,12 @@ const ProductList = () => {
 	return (
 		<div className={'list'}>
 			{productsData.map(item => (
-				<Item product={item} onAdd={onAdd} className={'item'} />
+				<Item
+					isAdded={!!addedItems.find(el => el.id === item.id)}
+					product={item}
+					onAdd={onAdd}
+					className={'item'}
+				/>
 			))}
 		</div>
 	)

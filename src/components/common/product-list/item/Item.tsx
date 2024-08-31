@@ -6,9 +6,10 @@ interface IProps {
 	product: IProduct
 	className: string
 	onAdd: (produce: IProduct) => void
+	isAdded: boolean
 }
 
-const Item = ({ product, className, onAdd }: IProps) => {
+const Item = ({ product, className, onAdd, isAdded }: IProps) => {
 	return (
 		<div className={'product ' + className}>
 			<div className={'img'} />
@@ -19,7 +20,8 @@ const Item = ({ product, className, onAdd }: IProps) => {
 					Price: <b>{product.price}</b>
 				</span>
 			</div>
-			<Button className={'add-btn'} onClick={() => onAdd(product)}>
+			<Button onClick={() => onAdd(product)}>
+				{isAdded ? 'Remove from favorites' : 'Add to favorites'}
 				Add to favorites
 			</Button>
 		</div>
