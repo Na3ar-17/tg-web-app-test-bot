@@ -8,6 +8,7 @@ const Form = () => {
 	const {
 		handleSubmit,
 		register,
+		getValues,
 		formState: { errors },
 	} = useForm<IFormDetails>({
 		mode: 'onSubmit',
@@ -27,11 +28,12 @@ const Form = () => {
 	}, [])
 
 	useEffect(() => {
-		if (isError) {
-			tg.MainButton.hide()
-		} else {
-			tg.MainButton.show()
-		}
+		if (getValues().name == '' || getValues().surname == '')
+			if (isError) {
+				tg.MainButton.hide()
+			} else {
+				tg.MainButton.show()
+			}
 	}, [isError])
 
 	return (
